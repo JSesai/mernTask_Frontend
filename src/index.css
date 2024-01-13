@@ -1,0 +1,6 @@
+/* PARA USAR TAILWIND 
+  1. instalamos dependencias para usar tailwind -> npm i -D tailwindcss postcss autoprefixer
+  2. Crear los archivos de configuracion de tailwind y de postcss -> npx tailwindcss init -p   */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
