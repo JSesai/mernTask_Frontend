@@ -1,15 +1,14 @@
-//COMPONENETE QUE PROTEGE LAS RUTAS QUE ENVUELVE EN EL APP.JSX 
-import { Outlet, Navigate } from "react-router-dom"
-import useAuth from "../hooks/useAuth"; //hook propio para extraer informacion del context
-import { Header, SideBar } from "../index"
+import React from 'react'
+import useAuth from "../hooks/useAuth"; //fn hook propio que nos permite acceder a nuestro context de autenticacion AuthContext
 
 
 
-export default function RutaProtegida() {
+export default function PageMain() {
+    const { auth, showAlert, navigate } = useAuth();
 
-    const { auth, cargando } = useAuth() //Extrae lo que esta en el return en el context , el objeto tiene una propiedad llamada auth 
-   
-    // if (cargando) return 'cargando..'
+    console.log(auth._id);
+    
+
     return (
         <>
             {/* validamos por id la propiedad extraida si existe esta autenticado de lo contrario lo direccionamos al login  */}

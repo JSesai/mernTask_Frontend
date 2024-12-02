@@ -1,7 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
 import { useNavigate } from "react-router-dom";
-import useProyectos from '../hooks/useProyectos'
 
 // Función utilitaria para concatenar y condicionar clases de manera más limpia
 function classNames(...classes) {
@@ -15,7 +14,6 @@ function classNames(...classes) {
 
 const Busqueda = () => {
     const [busqueda, setBusqueda] = useState('')
-    const { buscador, handleBuscador, proyectos } = useProyectos()
     const [proyectoSeleccionado, setProyectoSeleccionado] = useState('')
     //si la busqueda es vacia guarda un array vacio en proyectos filtrados, si no es vacio entonces hace un nuevo arreglo de objetos que incluyan lo que se escribe en el estate de busqueda y para poder compararlo convertimos los nombres de los proyectos a minusculas y tambien lo que se ha escrito en el input y se guarda en el estate para qure haga match de forma correcta
     const proyectosFiltrados = busqueda === '' ? [] : proyectos.filter(proyectoState => proyectoState.nombre.toLowerCase().includes(busqueda.toLocaleLowerCase()))
@@ -29,7 +27,8 @@ const Busqueda = () => {
 
     return (
         <Transition.Root show={buscador} as={Fragment} afterLeave={() => setBusqueda('')}>
-            <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto mt-20 p-4 sm:p-20 md:p-20" onClose={handleBuscador}>
+            <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto mt-20 p-4 sm:p-20 md:p-20"
+                onClose={handleBuscador}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -55,8 +54,8 @@ const Busqueda = () => {
                         as="div"
                         className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
                         // onChange={(proyecto) => (navigate(`/proyectos/${proyecto._id}`)) }
-                        onChange={(proyecto) => (window.location=`/proyectos/${proyecto._id}`) }
-                        // onChange={(proyecto) => handleNavegarProyectoSeleccionado(proyecto)}
+                        onChange={(proyecto) => (window.location = `/proyectos/${proyecto._id}`)}
+                    // onChange={(proyecto) => handleNavegarProyectoSeleccionado(proyecto)}
                     >
                         <div className="relative">
                             <Combobox.Input
@@ -67,7 +66,7 @@ const Busqueda = () => {
                         </div>
 
                         {proyectosFiltrados.length > 0 && (
-                            <Combobox.Options  static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800">
+                            <Combobox.Options static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800">
                                 {proyectosFiltrados.map(proyecto => (
                                     <Combobox.Option
                                         key={proyecto._id}
